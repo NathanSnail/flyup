@@ -29,7 +29,8 @@ remap = {
     2.5: "speed",
     0.32: "accel",
     1.68: "decel",
-    0.4: "shield"
+    # 0.4: "shield"
+	# koobey discovery: shield tentacle is glued to player entity, not good.
 }
 
 bad = ["slimeball", "giga nuke"]
@@ -44,7 +45,7 @@ muls = [k for k, v in remap.items()]
 muls.sort()
 
 fly = 1.2
-err = (2**29+50000)/(2**29) - 1
+err = 1 / (70*512)
 # err = 0.005
 # err = 10 ** -7 * 0.5
 flyl = math.log(fly)
