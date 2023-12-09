@@ -1,7 +1,5 @@
 import itertools
 import math
-import copy
-
 
 # order bugs:
 # fly up, fly down, phasing, pipe bomb trigger
@@ -46,18 +44,18 @@ muls = [k for k,v in remap.items()]
 muls.sort()
 
 fly = 1.2
-err = (2**29+512)/(2**29) - 1
-# err = 0.0005
+# err = (2**29+512)/(2**29) - 1
+err = 0.005
 # err = 10 ** -7 * 0.5
 flyl = math.log(fly)
-x = 27
+x = 1
 target = float(input("target:")) / 7.92
 res = []
 be = []
 
-while x < 30:
+while x < 16:
     print(f"starting {x}")
-    print(res)
+    # print(res)
     for result in itertools.combinations_with_replacement(muls, x):
         v = 1
         # print(result)
@@ -72,14 +70,14 @@ while x < 30:
         # print(result,abs(target / v1 - 1))
         if abs(target / v1 - 1) < err:
             res.append([result,f1,v1])
-            print(res)
+            # print(res)
             # err = abs(target / v1 - 1)
             # print(f"{result} {f1} has val {v1:.4f})")
         f1 = math.ceil(fc)
         v1 = v * fly ** f1
         if abs(target / v1 - 1) < err:
             res.append([result,f1,v1])
-            print(res)
+            # print(res)
             # err = abs(target / v1 - 1)
             # print(f"{result} {f1} has err {v1:.4f})")
     print(f"done {x}, found {len(res)} total")
@@ -92,8 +90,8 @@ for elem in res:
             score += 0.3
     be.append((score,elem))
 
-# be.sort(key = lambda x: x[0])
-be.sort(key = lambda x: abs(x[1][2] / target - 1))
+be.sort(key = lambda x: x[0])
+# be.sort(key = lambda x: abs(x[1][2] / target - 1))
 be.reverse()
 for el in be:
     b = ""
