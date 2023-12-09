@@ -87,7 +87,7 @@ for elem in res:
     score = len(elem[0]) + len(set(elem[0])) * 4
     for badi in badm:
         if badi in elem[0]:
-            score += 0.3
+            score += 1
     be.append((score, elem))
 
 be.sort(key=lambda x: x[0])
