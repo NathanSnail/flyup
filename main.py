@@ -32,20 +32,20 @@ remap = {
     0.4: "shield"
 }
 
-bad = ["slimeball","giga nuke"]
+bad = ["slimeball", "giga nuke"]
 badm = []
 for e in bad:
-    for k,v in remap.items():
+    for k, v in remap.items():
         if v == e:
             badm.append(k)
 
-muls = [k for k,v in remap.items()]
+muls = [k for k, v in remap.items()]
 
 muls.sort()
 
 fly = 1.2
-# err = (2**29+512)/(2**29) - 1
-err = 0.005
+err = (2**29+50000)/(2**29) - 1
+# err = 0.005
 # err = 10 ** -7 * 0.5
 flyl = math.log(fly)
 x = 1
@@ -59,24 +59,24 @@ while x < 16:
     for result in itertools.combinations_with_replacement(muls, x):
         v = 1
         # print(result)
-		# small -> big
+        # small -> big
         for elem in result:
             v *= elem
             v = min(v, 20)
-        fc = math.log(target) / flyl
+        fc = math.log(target / v) / flyl
         # print(v,fc)
         f1 = math.floor(fc)
         v1 = v * fly ** f1
         # print(result,abs(target / v1 - 1))
         if abs(target / v1 - 1) < err:
-            res.append([result,f1,v1])
+            res.append([result, f1, v1])
             # print(res)
             # err = abs(target / v1 - 1)
             # print(f"{result} {f1} has val {v1:.4f})")
         f1 = math.ceil(fc)
         v1 = v * fly ** f1
         if abs(target / v1 - 1) < err:
-            res.append([result,f1,v1])
+            res.append([result, f1, v1])
             # print(res)
             # err = abs(target / v1 - 1)
             # print(f"{result} {f1} has err {v1:.4f})")
@@ -88,9 +88,9 @@ for elem in res:
     for badi in badm:
         if badi in elem[0]:
             score += 0.3
-    be.append((score,elem))
+    be.append((score, elem))
 
-be.sort(key = lambda x: x[0])
+be.sort(key=lambda x: x[0])
 # be.sort(key = lambda x: abs(x[1][2] / target - 1))
 be.reverse()
 for el in be:
